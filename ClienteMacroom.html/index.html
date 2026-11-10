@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- SEO / social: edit these values per client. Social crawlers (WhatsApp, Facebook) do not run JavaScript,
+     so these static tags are what they read. The script below also keeps them in sync with CONFIG. -->
+<title>Sample Pet Shop | Pet shop catalogue</title>
+<meta name="description" id="meta-desc" content="Sample catalogue for pet shops. All products, prices and details are fictional.">
+<meta property="og:type" content="website">
+<meta property="og:title" id="og-title" content="Sample Pet Shop | Pet shop catalogue">
+<meta property="og:description" id="og-desc" content="Sample catalogue for pet shops. All products, prices and details are fictional.">
+<!-- <meta property="og:image" content="https://YOUR-DOMAIN/og-image.jpg"> (use an absolute URL) -->
+<link rel="icon" id="favicon" href="data:,">
+
+<style>
+:root{
+  --primary:#0f766e;--primary-d:#134e4a;--accent:#f59e0b;--bg:#fffaf3;--txt:#1e293b;--muted:#64748b;--ok:#15803d;
+  --on-primary:#fff;--on-primary-d:#fff;--on-accent:#1e293b;
+  --radius:16px;--font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--per:1
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--txt);line-height:1.5}
+button{font:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--txt);outline-offset:2px;box-shadow:0 0 0 5px #fff}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:-9999px;top:8px}
+.skip:focus{left:8px;z-index:100;background:#fff;color:var(--txt);padding:8px 14px;border-radius:8px}
+
+/* Header */
+header{position:sticky;top:0;z-index:40;background:var(--primary-d);color:var(--on-primary-d);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;max-width:1100px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo-box{width:44px;height:44px;border-radius:10px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;overflow:hidden}
+.logo-box img{width:100%;height:100%;object-fit:contain}
+.logo{font-size:1.3rem;font-weight:800;margin:0;letter-spacing:-.5px}
+.logo span{color:var(--accent)}
+.hd-dir{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,currentColor 14%,transparent)}
+.dot{width:8px;height:8px;border-radius:50%;background:#9ca3af}
+.dot.on{background:#4ade80;animation:pulse 1.6s infinite}
+.dot.off{background:#f87171}
+@keyframes pulse{50%{opacity:.35}}
+.btn-bag{position:relative;background:var(--accent);color:var(--on-accent);border:0;border-radius:12px;padding:10px 14px;font-weight:700}
+
+/* Hero */
+.hero{background-color:var(--primary-d);background-image:linear-gradient(135deg,var(--primary-d),var(--primary));background-size:cover;background-position:center;color:var(--on-primary-d);padding:80px 16px;text-align:center}
+.hero.has-img{background-image:linear-gradient(135deg,color-mix(in srgb,var(--primary-d) 85%,transparent),color-mix(in srgb,var(--primary) 60%,transparent)),var(--hero-img)}
+.hero h2{font-size:clamp(1.8rem,5vw,2.8rem);margin:0 0 12px;line-height:1.15}
+.hero p{max-width:620px;margin:0 auto 24px;opacity:.9}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;font-weight:700;text-decoration:none;margin:4px;border:2px solid transparent;cursor:pointer}
+.b-accent{background:var(--accent);color:var(--on-accent)}
+.b-out{border-color:currentColor;color:inherit;background:transparent}
+
+/* Highlights strip */
+.strip{background:#fff;border-bottom:1px solid #e2e8f0}
+.strip ul{list-style:none;margin:0 auto;padding:14px 16px;max-width:1100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.strip li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+.strip .ic{font-size:1.5rem;line-height:1}
+.strip b{display:block}
+.strip .tx{color:var(--muted)}
+
+/* Carousel */
+.carousel-sec{padding:32px 0 8px}
+.sec-title{display:flex;align-items:center;justify-content:center;margin:0 0 14px;padding:0 16px;text-align:center}
+.sec-title h2{margin:0;font-size:1.3rem;color:var(--primary-d);text-align:center}
+.sec-title h2 span{color:var(--accent)}
+.car{position:relative;overflow:hidden;max-width:1100px;margin:0 auto}
+.car-track{display:flex;transition:transform .5s ease;touch-action:pan-y}
+.slide{flex:0 0 calc(100% / var(--per));padding:8px;box-sizing:border-box}
+.promo-card{background:#fff;border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column;height:100%}
+.promo-photo{height:180px}
+.photo{display:flex;align-items:center;justify-content:center;width:100%;border:0;padding:0;background:#f1f5f9;font-size:3rem;position:relative;cursor:pointer;color:inherit}
+.photo img{width:100%;height:100%;object-fit:contain;padding:8px}
+.promo-photo.photo{font-size:3.5rem}
+.card .photo{height:190px}
+.badge,.featured{position:absolute;top:10px;left:10px;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px}
+.badge.feat,.featured{background:var(--accent);color:var(--on-accent)}
+.badge.off{background:var(--ok);color:#fff;right:10px;left:auto}
+.body{padding:14px;display:flex;flex-direction:column;flex:1}
+.name{font-weight:700;font-size:1rem;margin:4px 0;line-height:1.3}
+.link{background:none;border:0;padding:0;font:inherit;font-weight:inherit;color:inherit;text-align:left}
+.link:hover{color:var(--primary)}
+.size{font-size:.8rem;color:var(--muted)}
+.cat{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.buy{margin-top:auto;padding-top:8px;display:flex;flex-direction:column;gap:10px}
+.prices{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price-now{font-size:1.25rem;font-weight:800;color:var(--primary-d)}
+.price-old{font-size:.9rem;color:var(--muted)}
+.price-req{font-size:.9rem;font-weight:600;color:var(--muted)}
+.add{background:var(--primary);color:var(--on-primary);border:0;border-radius:10px;padding:10px;font-weight:700}
+.add:hover{background:var(--primary-d);color:var(--on-primary-d)}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:var(--primary-d);font-size:1.4rem;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:2}
+.car-btn.prev{left:8px}
+.car-btn.next{right:8px}
+.car-btn:hover{background:var(--primary);color:var(--on-primary)}
+.car-ctl{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px}
+.dots{display:flex;gap:8px}
+.dots button{width:10px;height:10px;border-radius:999px;border:0;background:#94a3b8;padding:0;transition:width .2s,background .2s}
+.dots button.on{width:24px;background:var(--primary)}
+.pause{width:30px;height:30px;border-radius:50%;border:1px solid #94a3b8;background:#fff;color:var(--txt);font-size:.8rem;line-height:1;padding:0}
+
+/* Search / tabs / filters */
+.search{display:flex;gap:8px;max-width:520px;margin:24px auto 0;padding:0 16px}
+.search input{flex:1;min-width:0;padding:12px 16px;border:2px solid var(--primary);border-radius:999px;font:inherit;outline:none}
+.search input:focus{border-color:var(--accent)}
+.search button{background:var(--primary);color:var(--on-primary);border:0;border-radius:999px;padding:0 18px;font-weight:700}
+.search button:hover{background:var(--primary-d);color:var(--on-primary-d)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:24px 16px 8px}
+.tab{border:2px solid var(--primary);background:#fff;color:var(--primary-d);padding:8px 16px;border-radius:999px;font-weight:600}
+.tab.active{background:var(--primary);color:var(--on-primary)}
+.filters{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:8px 16px 0}
+.filters label{font-size:.8rem;font-weight:600;display:flex;flex-direction:column;gap:3px}
+.filters select{padding:8px 12px;border:2px solid var(--primary);border-radius:999px;background:#fff;color:var(--txt);font:inherit;min-width:170px}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;padding:16px 0 40px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+
+/* Services + brands */
+.sec{padding:8px 0 0}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;padding:0 0 32px}
+.svc{background:#fff;border-radius:var(--radius);box-shadow:0 2px 10px rgba(0,0,0,.07);padding:18px;display:flex;flex-direction:column;gap:6px}
+.svc .ic{font-size:2rem;line-height:1}
+.svc h3{margin:0;font-size:1.05rem}
+.svc p{margin:0;color:var(--muted);font-size:.9rem}
+.svc .sp{font-weight:800;color:var(--primary-d)}
+.svc a{margin-top:auto;padding-top:8px;font-weight:700;color:var(--primary-d)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 0 32px}
+.chip{background:#fff;border:1px solid #cbd5e1;border-radius:999px;padding:6px 14px;font-weight:600;font-size:.9rem}
+
+/* Product detail dialog */
+dialog.pd{border:0;border-radius:var(--radius);padding:0;width:min(780px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;color:var(--txt)}
+dialog.pd::backdrop{background:rgba(0,0,0,.55)}
+.pd-x{position:absolute;top:8px;right:8px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;background:#fff;color:var(--txt);font-size:1.4rem;line-height:1;box-shadow:0 1px 6px rgba(0,0,0,.25)}
+.pd-body{display:grid;grid-template-columns:1fr}
+.pd-main{height:300px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:5rem}
+.pd-main img{width:100%;height:100%;object-fit:contain;padding:8px}
+.pd-thumbs{display:flex;gap:8px;padding:8px;overflow-x:auto}
+.pd-thumbs button{width:56px;height:56px;border:2px solid transparent;border-radius:8px;background:#f1f5f9;padding:0;flex-shrink:0}
+.pd-thumbs button[aria-current="true"]{border-color:var(--primary)}
+.pd-thumbs img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.pd-info{padding:20px;display:flex;flex-direction:column;gap:8px}
+.pd-info h2{margin:0;font-size:1.4rem;line-height:1.25}
+.pd-info select{padding:8px;border:1px solid #94a3b8;border-radius:8px;font:inherit;background:#fff;color:var(--txt)}
+.vlabel{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:600}
+.desc{white-space:pre-line;margin:4px 0 8px}
+@media(min-width:640px){.pd-body{grid-template-columns:1fr 1fr}.pd-main{height:100%;min-height:360px}}
+
+/* Bag */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
+.overlay.on{opacity:1;pointer-events:auto}
+.bag{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:#fff;transform:translateX(100%);transition:transform .3s;z-index:60;display:flex;flex-direction:column}
+.bag.on{transform:translateX(0)}
+.bag-top{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid #e2e8f0}
+.bag-top h3{margin:0}
+.x{background:none;border:0;font-size:1.5rem;color:var(--muted)}
+.items{flex:1;overflow-y:auto;padding:12px 16px}
+.none{text-align:center;color:var(--muted);padding:40px 0}
+.item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f1f5f9}
+.item .mini{width:56px;height:56px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.4rem;overflow:hidden}
+.item .mini img{width:100%;height:100%;object-fit:cover}
+.item .info{flex:1;min-width:0}
+.item .info b{font-size:.85rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qty{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty button{width:28px;height:28px;border-radius:6px;border:1px solid #94a3b8;background:#fff;color:var(--txt)}
+.qty .rm{width:auto;border:0;background:none;color:#b91c1c;font-size:.8rem}
+.checkout{padding:12px 16px;border-top:1px solid #e2e8f0;background:#f8fafc;overflow-y:auto;max-height:55%}
+.checkout label{display:block;font-size:.8rem;font-weight:600;margin-top:8px}
+.checkout input,.checkout select{width:100%;padding:8px;border:1px solid #94a3b8;border-radius:8px;margin-top:3px;font:inherit}
+.note{font-size:.75rem;color:var(--muted);margin:10px 0 0}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem;margin:12px 0 2px}
+.total-note{font-size:.75rem;color:var(--muted);margin:0 0 8px}
+.send{width:100%;background:#075e54;color:#fff;border:0;border-radius:12px;padding:12px;font-weight:700;font-size:1rem;margin-top:10px}
+.err{color:#b91c1c;font-size:.85rem;margin:8px 0 0;display:none}
+
+/* Footer */
+footer{background:var(--primary-d);color:var(--on-primary-d);padding:40px 0 20px;margin-top:20px}
+.foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+footer h4{margin:0 0 8px;color:var(--accent)}
+footer p{margin:4px 0;font-size:.9rem;opacity:.92}
+footer .small{font-size:.75rem;opacity:.75}
+.map{width:100%;height:180px;border-radius:12px;background:color-mix(in srgb,currentColor 12%,transparent);overflow:hidden}
+.map button{width:100%;height:100%;border:0;background:none;color:inherit;font-size:.9rem}
+.map iframe{width:100%;height:100%;border:0}
+.legal,.copy{text-align:center;font-size:.8rem;margin-top:20px;opacity:.85}
+.legal a{margin:0 8px}
+
+@media(min-width:640px){:root{--per:2}}
+@media(min-width:960px){:root{--per:3}}
+@media(max-width:640px){.hero{padding:56px 16px}.car-btn{width:34px;height:34px;font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){.car-track,.bag,.overlay,.card{transition:none}.dot.on{animation:none}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#catalog" data-i18n="skip">Skip to products</a>
+
+<header>
+  <div class="hd">
+    <div class="brand">
+      <div class="logo-box" id="logo-box" aria-hidden="true"></div>
+      <h1 class="logo" id="brand-name"></h1>
+    </div>
+    <div class="hd-dir">
+      <span class="status" id="status"><span class="dot" id="dot"></span><span id="status-txt"></span></span>
+      <button class="btn-bag" id="open-bag" type="button" data-i18n-aria="bagOpen">🛍️ <span id="total-items">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap">
+    <h2 id="hero-title"></h2>
+    <p id="hero-text"></p>
+    <a class="btn b-accent" href="#catalog" data-i18n="viewProducts"></a>
+    <a class="btn b-out" id="hero-wa" href="#" target="_blank" rel="noopener" data-i18n="contactWa"></a>
+  </div>
+</section>
+
+<noscript><p style="text-align:center;padding:24px">Please enable JavaScript to view the catalogue.</p></noscript>
+
+<!-- Highlights (collection, delivery, etc.) -->
+<section class="strip" id="strip" hidden><ul id="strip-list"></ul></section>
+
+<!-- Featured & promotions carousel -->
+<section class="carousel-sec" id="carousel-sec" aria-labelledby="car-title" hidden>
+  <div class="sec-title"><h2 id="car-title"></h2></div>
+  <div class="car" id="car" tabindex="0" role="region" aria-roledescription="carousel" aria-labelledby="car-title">
+    <button class="car-btn prev" id="car-prev" type="button" data-i18n-aria="prev">‹</button>
+    <div class="car-track" id="car-track"></div>
+    <button class="car-btn next" id="car-next" type="button" data-i18n-aria="next">›</button>
+  </div>
+  <div class="car-ctl">
+    <button class="pause" id="car-pause" type="button">⏸</button>
+    <div class="dots" id="car-dots"></div>
+  </div>
+</section>
+
+<div class="search" role="search">
+  <input id="search-input" type="search" data-i18n-ph="searchPh" data-i18n-aria="searchLabel">
+  <button id="search-clear" type="button" data-i18n="clear"></button>
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="filters" id="filters" hidden>
+  <label><span data-i18n="stageLabel"></span><select id="f-stage"></select></label>
+  <label><span data-i18n="brandLabel"></span><select id="f-brand"></select></label>
+</div>
+
+<main class="wrap" id="catalog">
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="sec wrap" id="services" aria-labelledby="svc-title" hidden>
+  <div class="sec-title"><h2 id="svc-title"></h2></div>
+  <div class="svc-grid" id="svc-grid"></div>
+</section>
+
+<section class="sec wrap" id="brands" aria-labelledby="brands-title" hidden>
+  <div class="sec-title"><h2 id="brands-title"></h2></div>
+  <div class="chips" id="brands-list"></div>
+</section>
+
+<footer>
+  <div class="wrap foot" id="foot"></div>
+  <p class="legal" id="legal"></p>
+  <p class="copy" id="copy"></p>
+</footer>
+
+<!-- Product detail -->
+<dialog class="pd" id="pd" aria-labelledby="pd-title"></dialog>
+
+<!-- Bag / enquiry list -->
+<div class="overlay" id="overlay"></div>
+<aside class="bag" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" inert>
+  <div class="bag-top"><h3 id="bag-title"></h3><button class="x" id="close-bag" type="button" data-i18n-aria="close">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="checkout">
+    <div class="total" id="total-row"><span data-i18n="total"></span><span id="total">€0.00</span></div>
+    <p class="total-note" id="total-note" data-i18n="totalPlus" hidden></p>
+    <div id="fields"></div>
+    <p class="err" id="err" role="alert"></p>
+    <button class="send" id="send" type="button"></button>
+  </div>
+</aside>
+
+<script>
+/* =====================================================================
+   1) CLIENT CONFIGURATION  –  edit this block per client (plus PRODUCTS)
+   DEMO DATA: the name, address, phone and products below are FICTIONAL.
+   ===================================================================== */
+const CONFIG = {
+  slug: "sample-pet-shop",      // unique id per client (used in the localStorage key)
+  name: "Sample Pet Shop",
+  initials: "",                  // optional; if empty, built from the name
+  logo: "",                      // optional path, e.g. "img/logo.png"
+  lang: "en",
+  locale: "en-IE",
+  currency: "EUR",
+
+  orderMode: "enquiry",          // "enquiry" = send an enquiry list (default) | "order" = also asks address + payment
+  showPrices: true,              // false = hides all prices
+  paymentMethods: ["Bank transfer", "Cash on delivery", "Debit card", "Credit card"], // only if orderMode="order"
+
+  whatsapp: "55016996293367",      // country code + number WITHOUT the leading 0 (Irish mobile 087 123 4567 -> 353871234567)
+  phone: "",
+  email: "seu@email.com",
+  address: { street: "", postal: "", city: "Cork", country: "Ireland", countryCode: "IE" }, // postal = Eircode
+  mapQuery: "",                  // optional; if empty the address is used
+  social: { instagram: "", facebook: "" },
+
+  // Optional business identification (shown in the footer). Fill with the client's real data.
+  business: { legalName: "", regNo: "", vatNo: "" },
+
+  timezone: "Europe/Dublin",
+  hours: {                       // 0=Sun ... 6=Sat; missing day = closed
+    1: [["09:00", "18:00"]], 2: [["09:00", "18:00"]], 3: [["09:00", "18:00"]],
+    4: [["09:00", "18:00"]], 5: [["09:00", "18:00"]],
+    6: [["09:00", "17:00"]]
+  },
+
+  legal: { privacy: "", notice: "" },   // links appear only if set
+
+ hero: { title: "Sample catalogue for pet shops", text: "This is a demo with fictional products and prices. Your catalogue would use your own products, photos and details.", image: "" },
+  description: "Sample catalogue for pet shops. All products, prices and details are fictional.",
+  ogImage: "",
+  schemaType: "PetStore",
+  placeholder: "🐾",             // fallback when a product has no image and no emoji
+
+  // Highlight strip under the hero (leave [] to hide)
+  highlights: [
+    { icon: "🏪", title: "Collect in store", text: "Message us your list and we'll have it ready." },
+    { icon: "🚚", title: "Local delivery", text: "Ask us about delivery in Cork." },
+    { icon: "💬", title: "Friendly advice", text: "Not sure what to choose? Just ask." }
+  ],
+
+  // Services (leave [] to hide). price is free text, e.g. "From €35".
+  services: [
+    { icon: "✂️", name: "Dog grooming", text: "Wash, cut and tidy-up for all breeds. Booking required.", price: "From €35" },
+    { icon: "🛁", name: "Self-wash bay", text: "Everything you need to wash your dog in store.", price: "" },
+    { icon: "🥣", name: "Nutrition advice", text: "Help choosing the right food for your pet.", price: "" }
+  ],
+
+  // Brands stocked (text only; leave [] to hide). Only list brands the shop really sells and may display.
+  brands: ["Brand A", "Brand B", "Brand C", "Brand D"],
+
+  theme: {
+    primary: "#0f766e", primaryDark: "#134e4a", accent: "#f59e0b",
+    bg: "#fffaf3", text: "#1e293b", muted: "#64748b",
+    font: "", radius: "16px"
+  }
+};
+
+/* =====================================================================
+   2) PRODUCTS
+   id: unique number | category: animal (used for the tabs) | brand, lifeStage: optional (used for filters)
+   emoji: shown when there is no image | images: array of paths (first = cover) | featured: true -> carousel
+   variants: [{ label, price, priorPrice }] one entry per size/pack, each with its own price.
+             price null = "price on request".
+   priorPrice (EU Omnibus): must be the lowest price applied in the previous 30 days. Confirm with the client.
+   ===================================================================== */
+const PRODUCTS = [
+  { id: 1,  name: "Adult Dog Food – Chicken & Rice", category: "Dogs", brand: "Brand A", lifeStage: "Adult", emoji: "🐕", featured: true,
+    description: "Complete dry food for adult dogs.\nDemo description – replace with the product's real details.",
+    images: [], variants: [ { label: "2 kg", price: 9.95 }, { label: "12 kg", price: 36.90, priorPrice: 39.90 }, { label: "15 kg", price: 44.50 } ] },
+  { id: 2,  name: "Puppy Food – Lamb", category: "Dogs", brand: "Brand B", lifeStage: "Puppy / Kitten", emoji: "🐶", featured: false,
+    description: "", images: [], variants: [ { label: "2 kg", price: 11.50 }, { label: "12 kg", price: 42.00 } ] },
+  { id: 3,  name: "Senior Dog Food – Light", category: "Dogs", brand: "Brand A", lifeStage: "Senior", emoji: "🐕‍🦺", featured: false,
+    description: "", images: [], variants: [ { label: "2 kg", price: 10.50 }, { label: "12 kg", price: 38.00 } ] },
+  { id: 4,  name: "Rope Chew Toy", category: "Dogs", brand: "", lifeStage: "All ages", emoji: "🦴", featured: false,
+    description: "Durable rope toy for tug games.", images: [], variants: [ { label: "Medium", price: 6.50 } ] },
+  { id: 5,  name: "Adjustable Dog Collar", category: "Dogs", brand: "", lifeStage: "All ages", emoji: "🦮", featured: false,
+    description: "", images: [], variants: [ { label: "Small", price: 9.90 }, { label: "Medium", price: 11.90 }, { label: "Large", price: 13.90 } ] },
+  { id: 6,  name: "Adult Cat Food – Salmon", category: "Cats", brand: "Brand C", lifeStage: "Adult", emoji: "🐈", featured: true,
+    description: "", images: [], variants: [ { label: "1.5 kg", price: 8.95 }, { label: "7 kg", price: 29.90 } ] },
+  { id: 7,  name: "Kitten Wet Food Pouches", category: "Cats", brand: "Brand C", lifeStage: "Puppy / Kitten", emoji: "🐱", featured: false,
+    description: "", images: [], variants: [ { label: "12 × 85 g", price: 9.50 } ] },
+  { id: 8,  name: "Cat Scratching Post", category: "Cats", brand: "", lifeStage: "All ages", emoji: "🐈‍⬛", featured: false,
+    description: "", images: [], variants: [ { label: "60 cm", price: 24.00 } ] },
+  { id: 9,  name: "Large Cat Tree", category: "Cats", brand: "", lifeStage: "All ages", emoji: "🐈", featured: false,
+    description: "Example of a product with price on request.", images: [], variants: [ { label: "Large", price: null } ] },
+  { id: 10, name: "Rabbit Hay", category: "Small pets", brand: "Brand D", lifeStage: "All ages", emoji: "🐇", featured: false,
+    description: "", images: [], variants: [ { label: "1 kg", price: 4.50 }, { label: "3 kg", price: 10.50, priorPrice: 12.00 } ] },
+  { id: 11, name: "Guinea Pig Food", category: "Small pets", brand: "Brand D", lifeStage: "Adult", emoji: "🐹", featured: false,
+    description: "", images: [], variants: [ { label: "1 kg", price: 6.95 } ] },
+  { id: 12, name: "Wild Bird Seed Mix", category: "Birds", brand: "Brand B", lifeStage: "All ages", emoji: "🐦", featured: true,
+    description: "", images: [], variants: [ { label: "2 kg", price: 5.95 }, { label: "12.5 kg", price: 24.00 } ] },
+  { id: 13, name: "Budgie Seed", category: "Birds", brand: "Brand B", lifeStage: "Adult", emoji: "🦜", featured: false,
+    description: "", images: [], variants: [ { label: "1 kg", price: 4.95 } ] },
+  { id: 14, name: "Tropical Fish Flakes", category: "Fish & aquatics", brand: "Brand D", lifeStage: "All ages", emoji: "🐠", featured: false,
+    description: "", images: [], variants: [ { label: "100 g", price: 5.50 } ] },
+  { id: 15, name: "Aquarium Internal Filter", category: "Fish & aquatics", brand: "", lifeStage: "", emoji: "🐟", featured: false,
+    description: "", images: [], variants: [ { label: "Up to 100 L", price: 19.90 }, { label: "Up to 200 L", price: 27.90 } ] }
+];
+/* Normalise: products without "variants" (older format) get one variant from price/priorPrice/detail */
+PRODUCTS.forEach(p => {
+  if (!Array.isArray(p.variants) || !p.variants.length)
+    p.variants = [{ label: p.detail || "", price: p.price ?? null, priorPrice: p.priorPrice ?? null }];
+});
+
+/* =====================================================================
+   3) TEXTS (Irish English). Missing keys fall back to English.
+   ===================================================================== */
+const I18N = {
+  en: {
+    checking:"Checking...", open:"Open now", closed:"Closed", skip:"Skip to products", catalogTitle:"Online catalogue",
+    heroTitle:"Discover our products", heroText:"Browse our catalogue, save your favourites to a list and contact us in a few clicks.",
+    viewProducts:"View products", contactWa:"Contact us on WhatsApp", featuredWord:"Featured", promoWord:"Offers",
+    searchPh:"Search products...", searchLabel:"Search products", clear:"Clear", all:"All",
+    stageLabel:"Life stage", brandLabel:"Brand", allStages:"All life stages", allBrands:"All brands",
+    add:"Add to list", added:"✓ Added", chooseSize:"Choose size", sizeLabel:"Size / pack", from:"From {price}", offer:"Offer",
+    viewDetails:"View details", close:"Close",
+    noProducts:"No products found.", noProductsFor:"No products found for", featured:"Featured", priceRequest:"Price on request",
+    bagOpen:"Open your list", bagTitle:"Your list", bagEmpty:"Your list is empty.", total:"Total", totalPlus:"+ items with price on request",
+    remove:"Remove", decrease:"Decrease quantity of", increase:"Increase quantity of",
+    nameReq:"Full name", nameOpt:"Your name (optional)", addressLabel:"Delivery address", paymentLabel:"Payment method", noteLabel:"Message (optional)",
+    privacyNote:"The details you enter are only used to write your WhatsApp message. They are not stored on this website.",
+    errOrder:"Please fill in your name and address before sending.", errEmpty:"Add at least one product to your list.",
+    sendEnquiry:"Send enquiry via WhatsApp", sendOrder:"Send order via WhatsApp",
+    msgEnquiry:"New enquiry", msgOrder:"New order", msgCustomer:"Customer", msgAddress:"Address", msgPayment:"Payment", msgNote:"Message", msgItems:"Items", msgTotal:"Estimated total",
+    prev:"Previous", next:"Next", goTo:"Go to slide {n}", pause:"Pause slideshow", play:"Play slideshow", photo:"Photo",
+    servicesTitle:"Our services", brandsTitle:"Brands we stock", askService:"Ask about this service", serviceMsg:"Hi, I'd like to know more about: {name}",
+    mapShow:"Show map", mapNote:"Showing the map loads content from Google.", mapOpen:"Open in Google Maps", mapTitle:"Map",
+    hoursTitle:"Opening hours", locationTitle:"Location", contactTitle:"Contact", hoursTz:"Times shown in the store's local time ({tz}).", closedDay:"Closed",
+    regNo:"Company no.", vatNo:"VAT no.",
+    rights:"All rights reserved.", privacyLink:"Privacy policy", legalLink:"Legal notice"
+  }
+};
+const STR = Object.assign({}, I18N.en, I18N[CONFIG.lang] || {});
+const t = k => STR[k] ?? k;
+
+/* =====================================================================
+   4) HELPERS
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const normalize = s => String(s ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const fmt = new Intl.NumberFormat(CONFIG.locale, { style: "currency", currency: CONFIG.currency });
+const money = v => fmt.format(v);
+const hasDiscount = v => v.price != null && v.priorPrice != null && v.priorPrice > v.price;
+const cap = s => s.charAt(0).toLocaleUpperCase(CONFIG.locale) + s.slice(1);
+const waNumber = () => CONFIG.whatsapp.replace(/\D/g, "");
+
+function lum(hex){
+  let c = hex.replace("#", "");
+  if (c.length === 3) c = c.split("").map(x => x + x).join("");
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16) / 255)
+    .map(v => v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+  return .2126 * r + .7152 * g + .0722 * b;
+}
+function contrast(a, b){ const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + .05) / (y + .05); }
+function onColor(bg, name){
+  const white = contrast(bg, "#ffffff"), dark = contrast(bg, "#1e293b");
+  if (Math.max(white, dark) < 4.5) console.warn(`[Contrast] ${name} (${bg}) has low contrast with both white and dark text. Choose another color.`);
+  return white >= dark ? "#ffffff" : "#1e293b";
+}
+function applyTheme(){
+  const th = CONFIG.theme, s = document.documentElement.style;
+  s.setProperty("--primary", th.primary); s.setProperty("--primary-d", th.primaryDark);
+  s.setProperty("--accent", th.accent); s.setProperty("--bg", th.bg);
+  s.setProperty("--txt", th.text); s.setProperty("--muted", th.muted);
+  s.setProperty("--radius", th.radius || "16px");
+  if (th.font) s.setProperty("--font", th.font);
+  s.setProperty("--on-primary", onColor(th.primary, "primary"));
+  s.setProperty("--on-primary-d", onColor(th.primaryDark, "primaryDark"));
+  s.setProperty("--on-accent", onColor(th.accent, "accent"));
+}
+function applyI18n(){
+  document.documentElement.lang = CONFIG.lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => el.placeholder = t(el.dataset.i18nPh));
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+}
+
+/* =====================================================================
+   5) BRAND, HERO, SEO, EXTRA SECTIONS
+   ===================================================================== */
+function initials(){
+  return (CONFIG.initials || CONFIG.name.split(/\s+/).map(w => w[0]).join("").slice(0, 2)).toUpperCase();
+}
+function renderBrand(){
+  const [first, ...rest] = CONFIG.name.split(" ");
+  $("brand-name").innerHTML = esc(first) + (rest.length ? ` <span>${esc(rest.join(" "))}</span>` : "");
+  $("logo-box").innerHTML = CONFIG.logo ? `<img src="${esc(CONFIG.logo)}" alt="">` : esc(initials());
+  $("hero-title").textContent = CONFIG.hero.title || t("heroTitle");
+  $("hero-text").textContent = CONFIG.hero.text || t("heroText");
+  $("hero-wa").href = "https://wa.me/" + waNumber();
+  if (CONFIG.hero.image){
+    $("hero").classList.add("has-img");
+    $("hero").style.setProperty("--hero-img", `url("${CONFIG.hero.image.replace(/"/g, "%22")}")`);
+  }
+  $("car-title").innerHTML = `⭐ <span>${esc(t("featuredWord"))}</span> &amp; ${esc(t("promoWord"))}`;
+  $("bag-title").textContent = t("bagTitle");
+}
+
+function renderStrip(){
+  const list = CONFIG.highlights || [];
+  $("strip").hidden = !list.length;
+  $("strip-list").innerHTML = list.map(h =>
+    `<li><span class="ic" aria-hidden="true">${esc(h.icon || "✔")}</span><div><b>${esc(h.title)}</b><span class="tx">${esc(h.text || "")}</span></div></li>`).join("");
+}
+function renderServices(){
+  const list = CONFIG.services || [];
+  $("services").hidden = !list.length;
+  if (!list.length) return;
+  $("svc-title").textContent = t("servicesTitle");
+  const wa = n => `https://wa.me/${waNumber()}?text=${encodeURIComponent(t("serviceMsg").replace("{name}", n))}`;
+  $("svc-grid").innerHTML = list.map(s => `
+    <article class="svc">
+      <span class="ic" aria-hidden="true">${esc(s.icon || "🐾")}</span>
+      <h3>${esc(s.name)}</h3>
+      ${s.text ? `<p>${esc(s.text)}</p>` : ""}
+      ${CONFIG.showPrices && s.price ? `<span class="sp">${esc(s.price)}</span>` : ""}
+      <a href="${esc(wa(s.name))}" target="_blank" rel="noopener">${esc(t("askService"))} →</a>
+    </article>`).join("");
+}
+function renderBrands(){
+  const list = CONFIG.brands || [];
+  $("brands").hidden = !list.length;
+  if (!list.length) return;
+  $("brands-title").textContent = t("brandsTitle");
+  $("brands-list").innerHTML = list.map(b => `<span class="chip">${esc(b)}</span>`).join("");
+}
+
+function injectSEO(){
+  const title = `${CONFIG.name} | ${t("catalogTitle")}`;
+  const desc = CONFIG.description || `${CONFIG.name} – ${CONFIG.hero.text || t("heroText")}`;
+  document.title = title;
+  $("meta-desc").content = desc; $("og-title").content = title; $("og-desc").content = desc;
+  if (CONFIG.ogImage){
+    const m = document.createElement("meta"); m.setAttribute("property", "og:image"); m.content = CONFIG.ogImage; document.head.appendChild(m);
+  }
+  const th = CONFIG.theme;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='${th.accent}'/><text x='32' y='42' font-size='28' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='${onColor(th.accent, "accent")}'>${esc(initials())}</text></svg>`;
+  $("favicon").href = "data:image/svg+xml," + encodeURIComponent(svg);
+
+  const A = CONFIG.address || {};
+  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const ld = { "@context": "https://schema.org", "@type": CONFIG.schemaType || "Store", name: CONFIG.name };
+  if (CONFIG.phone) ld.telephone = CONFIG.phone;
+  if (CONFIG.email) ld.email = CONFIG.email;
+  if (CONFIG.logo) ld.image = CONFIG.logo;
+  if (A.street || A.city) ld.address = { "@type": "PostalAddress", streetAddress: A.street || undefined, postalCode: A.postal || undefined, addressLocality: A.city || undefined, addressCountry: A.countryCode || undefined };
+  const same = [CONFIG.social.instagram, CONFIG.social.facebook].filter(Boolean);
+  if (same.length) ld.sameAs = same;
+  const spec = [];
+  Object.entries(CONFIG.hours).forEach(([d, ranges]) => ranges.forEach(([a, b]) => spec.push({ "@type": "OpeningHoursSpecification", dayOfWeek: days[d], opens: a, closes: b })));
+  if (spec.length) ld.openingHoursSpecification = spec;
+  if (location.protocol.startsWith("http")) ld.url = location.href.split("#")[0];
+  const s = document.createElement("script"); s.type = "application/ld+json"; s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+}
+
+/* =====================================================================
+   6) OPENING HOURS (store time zone) + FOOTER
+   ===================================================================== */
+const hasHours = Object.keys(CONFIG.hours).length > 0;
+function isOpenNow(){
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timezone, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+  const get = k => parts.find(p => p.type === k).value;
+  const day = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(get("weekday"));
+  const now = (Number(get("hour")) % 24) * 60 + Number(get("minute"));
+  const toMin = s => { const [h, m] = s.split(":"); return Number(h) * 60 + Number(m); };
+  return (CONFIG.hours[day] || []).some(([a, b]) => now >= toMin(a) && now < toMin(b));
+}
+function updateStatus(){
+  if (!hasHours){ $("status").hidden = true; return; }
+  const open = isOpenNow();
+  $("dot").className = "dot " + (open ? "on" : "off");
+  $("status-txt").textContent = open ? t("open") : t("closed");
+}
+const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0];
+const dayName = d => cap(new Intl.DateTimeFormat(CONFIG.locale, { weekday: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2024, 0, 7 + d))));
+function hoursRows(){
+  const rows = [];
+  DAY_ORDER.forEach(d => {
+    const r = CONFIG.hours[d];
+    const txt = r && r.length ? r.map(([a, b]) => `${a} – ${b}`).join(" · ") : t("closedDay");
+    const last = rows[rows.length - 1];
+    if (last && last.txt === txt) last.to = d; else rows.push({ from: d, to: d, txt });
+  });
+  return rows.map(r => ({ label: r.from === r.to ? dayName(r.from) : `${dayName(r.from)} – ${dayName(r.to)}`, txt: r.txt }));
+}
+function mapQuery(){
+  const A = CONFIG.address || {};
+  return CONFIG.mapQuery || [A.street, A.postal, A.city, A.country].filter(Boolean).join(", ");
+}
+function renderFooter(){
+  const A = CONFIG.address || {}, q = mapQuery();
+  const cityLine = A.countryCode === "IE" ? [A.city, A.postal] : [A.postal, A.city];   // Ireland: "Cork T12 XXXX"
+  const addr = [A.street, cityLine.filter(Boolean).join(" "), A.country].filter(Boolean);
+  const contact = [];
+  if (CONFIG.phone) contact.push(`<p><span aria-hidden="true">📞</span> <a href="tel:${esc(CONFIG.phone.replace(/[^\d+]/g, ""))}">${esc(CONFIG.phone)}</a></p>`);
+  contact.push(`<p><span aria-hidden="true">💬</span> <a href="https://wa.me/${esc(waNumber())}" target="_blank" rel="noopener">WhatsApp</a></p>`);
+  if (CONFIG.email) contact.push(`<p><span aria-hidden="true">✉️</span> <a href="mailto:${esc(CONFIG.email)}">${esc(CONFIG.email)}</a></p>`);
+  if (CONFIG.social.instagram) contact.push(`<p><a href="${esc(CONFIG.social.instagram)}" target="_blank" rel="noopener">Instagram</a></p>`);
+  if (CONFIG.social.facebook) contact.push(`<p><a href="${esc(CONFIG.social.facebook)}" target="_blank" rel="noopener">Facebook</a></p>`);
+
+  let html = `<div><h4>${esc(CONFIG.name)}</h4>${addr.map(l => `<p>${esc(l)}</p>`).join("")}<h4 style="margin-top:14px">${esc(t("contactTitle"))}</h4>${contact.join("")}</div>`;
+  if (hasHours) html += `<div><h4>${esc(t("hoursTitle"))}</h4>${hoursRows().map(r => `<p>${esc(r.label)}: ${esc(r.txt)}</p>`).join("")}<p class="small">${esc(t("hoursTz").replace("{tz}", CONFIG.timezone))}</p></div>`;
+  if (q) html += `<div><h4>${esc(t("locationTitle"))}</h4>
+      <div class="map" id="map"><button type="button" id="map-btn">🗺️ ${esc(t("mapShow"))}</button></div>
+      <p class="small">${esc(t("mapNote"))} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener">${esc(t("mapOpen"))}</a></p></div>`;
+  $("foot").innerHTML = html;
+
+  const links = [];
+  if (CONFIG.legal.privacy) links.push(`<a href="${esc(CONFIG.legal.privacy)}">${esc(t("privacyLink"))}</a>`);
+  if (CONFIG.legal.notice) links.push(`<a href="${esc(CONFIG.legal.notice)}">${esc(t("legalLink"))}</a>`);
+  $("legal").innerHTML = links.join(""); $("legal").hidden = !links.length;
+
+  const B = CONFIG.business || {};
+  const biz = [B.legalName, B.regNo && `${t("regNo")} ${B.regNo}`, B.vatNo && `${t("vatNo")} ${B.vatNo}`].filter(Boolean);
+  $("copy").innerHTML = esc(`© ${new Date().getFullYear()} ${CONFIG.name}. ${t("rights")}`) + (biz.length ? `<br>${esc(biz.join(" · "))}` : "");
+
+  const btn = $("map-btn");
+  if (btn) btn.addEventListener("click", () => {
+    $("map").innerHTML = `<iframe title="${esc(t("mapTitle"))}" loading="lazy" referrerpolicy="no-referrer" src="https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed"></iframe>`;
+  });
+}
+
+/* =====================================================================
+   7) STATE (bag) – item = { id, v (variant index), qty }
+   ===================================================================== */
+const STORAGE_KEY = "bag-" + CONFIG.slug;
+let bag = [];
+try { bag = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { bag = []; }
+bag = Array.isArray(bag) ? bag.filter(i => {
+  const p = PRODUCTS.find(x => x.id === i.id);
+  return p && Number.isInteger(i.v) && i.v >= 0 && i.v < p.variants.length && Number.isInteger(i.qty) && i.qty > 0;
+}) : [];
+function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(bag)); } catch (e) {} }
+const keyOf = i => i.id + ":" + i.v;
+
+/* =====================================================================
+   8) RENDER
+   ===================================================================== */
+const mediaHTML = p => p.images && p.images[0] ? `<img src="${esc(p.images[0])}" alt="${esc(p.name)}" loading="lazy">` : esc(p.emoji || CONFIG.placeholder);
+const sizesText = p => p.variants.map(v => v.label).filter(Boolean).join(" · ");
+
+function variantPriceHTML(v){
+  if (!CONFIG.showPrices) return "";
+  if (v.price == null) return `<div class="prices"><span class="price-req">${esc(t("priceRequest"))}</span></div>`;
+  return `<div class="prices"><span class="price-now">${money(v.price)}</span>${hasDiscount(v) ? `<s class="price-old">${money(v.priorPrice)}</s>` : ""}</div>`;
+}
+function priceHTML(p){
+  if (!CONFIG.showPrices) return "";
+  if (p.variants.length === 1) return variantPriceHTML(p.variants[0]);
+  const priced = p.variants.filter(v => v.price != null);
+  if (!priced.length) return variantPriceHTML({ price: null });
+  return `<div class="prices"><span class="price-now">${esc(t("from").replace("{price}", money(Math.min(...priced.map(v => v.price)))))}</span></div>`;
+}
+const addBtn = p => p.variants.length > 1
+  ? `<button class="add" type="button" data-detail="${p.id}">${esc(t("chooseSize"))}</button>`
+  : `<button class="add" type="button" data-add="${p.id}">${esc(t("add"))}</button>`;
+const bestOff = p => Math.max(0, ...p.variants.filter(hasDiscount).map(v => Math.round((1 - v.price / v.priorPrice) * 100)));
+
+/* ---------- Carousel ---------- */
+let carIndex = 0, carTimer = null, userPaused = false;
+const CAR_INTERVAL = 4000;
+const reduceMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const carItems = () => PRODUCTS.filter(p => p.featured || p.variants.some(hasDiscount));
+const perView = () => parseInt(getComputedStyle(document.documentElement).getPropertyValue("--per")) || 1;
+const carMax = () => Math.max(0, carItems().length - perView());
+
+function promoCardHTML(p, i, n){
+  const off = bestOff(p);
+  const offTxt = p.variants.length > 1 ? t("offer") : `-${off}%`;
+  return `
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="${i + 1} / ${n}">
+      <article class="promo-card">
+        <button class="photo promo-photo" type="button" data-detail="${p.id}" tabindex="-1" aria-hidden="true">${mediaHTML(p)}
+          ${p.featured ? `<span class="badge feat">${esc(t("featured"))}</span>` : ""}${off > 0 && CONFIG.showPrices ? `<span class="badge off">${esc(offTxt)}</span>` : ""}
+        </button>
+        <div class="body">
+          <h3 class="name"><button class="link" type="button" data-detail="${p.id}">${esc(p.name)}</button></h3>
+          ${sizesText(p) ? `<span class="size">${esc(sizesText(p))}</span>` : ""}
+          <div class="buy">${priceHTML(p)}${addBtn(p)}</div>
+        </div>
+      </article>
+    </div>`;
+}
+function renderCarousel(){
+  const items = carItems();
+  $("carousel-sec").hidden = !items.length;
+  if (!items.length) return;
+  $("car-track").innerHTML = items.map((p, i) => promoCardHTML(p, i, items.length)).join("");
+  const max = carMax();
+  if (carIndex > max) carIndex = max;
+  $("car-dots").innerHTML = Array.from({ length: max + 1 }, (_, i) =>
+    `<button type="button" class="${i === carIndex ? "on" : ""}" data-dot="${i}" aria-label="${esc(t("goTo").replace("{n}", i + 1))}"></button>`).join("");
+  const single = max === 0;
+  $("car-prev").hidden = $("car-next").hidden = single;
+  $("car-dots").hidden = single;
+  $("car-pause").hidden = single || reduceMotion();
+  updatePauseBtn();
+  moveCarousel();
+}
+function moveCarousel(){
+  $("car-track").style.transform = `translateX(calc(-${carIndex} * 100% / var(--per)))`;
+  const pv = perView();
+  document.querySelectorAll("#car-track .slide").forEach((s, i) => { s.inert = !(i >= carIndex && i < carIndex + pv); });
+  document.querySelectorAll("#car-dots button").forEach((b, i) => b.classList.toggle("on", i === carIndex));
+}
+function goTo(i){ const max = carMax(); carIndex = (i + max + 1) % (max + 1); moveCarousel(); }
+function startAuto(){
+  stopAuto();
+  if (userPaused || reduceMotion() || carMax() === 0) return;
+  carTimer = setInterval(() => goTo(carIndex + 1), CAR_INTERVAL);
+}
+function stopAuto(){ clearInterval(carTimer); carTimer = null; }
+function updatePauseBtn(){
+  const b = $("car-pause");
+  b.textContent = userPaused ? "▶" : "⏸";
+  b.setAttribute("aria-label", t(userPaused ? "play" : "pause"));
+}
+
+/* ---------- Filters + grid ---------- */
+let activeCategory = null, stage = "", brandFilter = "", searchTerm = "";
+function renderTabs(){
+  const cats = [...new Set(PRODUCTS.map(p => p.category))];
+  $("tabs").innerHTML = [null, ...cats].map(c =>
+    `<button type="button" class="tab ${c === activeCategory ? "active" : ""}" aria-pressed="${c === activeCategory}" data-cat="${c === null ? "" : esc(c)}">${esc(c === null ? t("all") : c)}</button>`).join("");
+}
+function renderFilters(){
+  const stages = [...new Set(PRODUCTS.map(p => p.lifeStage).filter(Boolean))];
+  const brands = [...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))];
+  const fill = (id, vals, all, cur) => { $(id).innerHTML = `<option value="">${esc(all)}</option>` + vals.map(v => `<option value="${esc(v)}"${v === cur ? " selected" : ""}>${esc(v)}</option>`).join(""); };
+  fill("f-stage", stages, t("allStages"), stage);
+  fill("f-brand", brands, t("allBrands"), brandFilter);
+  $("f-stage").parentElement.hidden = stages.length < 2;
+  $("f-brand").parentElement.hidden = brands.length < 2;
+  $("filters").hidden = stages.length < 2 && brands.length < 2;
+}
+function cardHTML(p){
+  return `
+    <article class="card">
+      <button class="photo" type="button" data-detail="${p.id}" tabindex="-1" aria-hidden="true">${mediaHTML(p)}${p.featured ? `<span class="featured">${esc(t("featured"))}</span>` : ""}</button>
+      <div class="body">
+        <span class="cat">${esc([p.category, p.brand].filter(Boolean).join(" · "))}</span>
+        <h3 class="name"><button class="link" type="button" data-detail="${p.id}">${esc(p.name)}</button></h3>
+        ${sizesText(p) ? `<span class="size">${esc(sizesText(p))}</span>` : ""}
+        <div class="buy">${priceHTML(p)}${addBtn(p)}</div>
+      </div>
+    </article>`;
+}
+function renderGrid(){
+  const term = normalize(searchTerm);
+  const list = PRODUCTS.filter(p =>
+    (activeCategory === null || p.category === activeCategory) &&
+    (!stage || p.lifeStage === stage) &&
+    (!brandFilter || p.brand === brandFilter) &&
+    (!term || normalize([p.name, p.category, p.brand, sizesText(p)].join(" ")).includes(term)));
+  $("grid").innerHTML = list.length
+    ? list.map(cardHTML).join("")
+    : `<div class="empty">${term ? `${esc(t("noProductsFor"))} "${esc(searchTerm)}".` : esc(t("noProducts"))}</div>`;
+}
+
+/* ---------- Product detail (<dialog>) ---------- */
+function openDetail(id){
+  const p = PRODUCTS.find(x => x.id === id); if (!p) return;
+  $("pd").dataset.pid = id;
+  const imgs = p.images || [];
+  const main = imgs.length ? `<img id="pd-img" src="${esc(imgs[0])}" alt="${esc(p.name)}">` : `<span aria-hidden="true">${esc(p.emoji || CONFIG.placeholder)}</span>`;
+  const thumbs = imgs.length > 1 ? `<div class="pd-thumbs">${imgs.map((s, i) =>
+    `<button type="button" data-thumb="${esc(s)}" aria-label="${esc(t("photo"))} ${i + 1}" ${i === 0 ? 'aria-current="true"' : ""}><img src="${esc(s)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  const sizeBlock = p.variants.length > 1
+    ? `<label class="vlabel">${esc(t("sizeLabel"))}<select id="pd-variant">${p.variants.map((v, i) =>
+        `<option value="${i}">${esc((v.label || "#" + (i + 1)) + (CONFIG.showPrices && v.price != null ? " – " + money(v.price) : ""))}</option>`).join("")}</select></label>`
+    : (p.variants[0].label ? `<span class="size">${esc(p.variants[0].label)}</span>` : "");
+  $("pd").innerHTML = `
+    <button class="pd-x" type="button" data-close aria-label="${esc(t("close"))}">×</button>
+    <div class="pd-body">
+      <div><div class="pd-main">${main}</div>${thumbs}</div>
+      <div class="pd-info">
+        <span class="cat">${esc([p.category, p.brand, p.lifeStage].filter(Boolean).join(" · "))}</span>
+        <h2 id="pd-title">${esc(p.name)}</h2>
+        ${sizeBlock}
+        <div id="pd-price">${variantPriceHTML(p.variants[0])}</div>
+        ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ""}
+        <div class="buy"><button class="add" type="button" data-add="${p.id}">${esc(t("add"))}</button></div>
+      </div>
+    </div>`;
+  $("pd").showModal();
+}
+
+/* ---------- Bag ---------- */
+const orderMode = () => CONFIG.orderMode === "order";
+function renderCheckout(){
+  const o = orderMode();
+  $("fields").innerHTML = `
+    <label>${esc(t(o ? "nameReq" : "nameOpt"))}<input id="c-name" autocomplete="name"></label>
+    ${o ? `<label>${esc(t("addressLabel"))}<input id="c-address" autocomplete="street-address"></label>
+           <label>${esc(t("paymentLabel"))}<select id="c-payment">${CONFIG.paymentMethods.map(m => `<option>${esc(m)}</option>`).join("")}</select></label>`
+        : `<label>${esc(t("noteLabel"))}<input id="c-note"></label>`}
+    <p class="note">${esc(t("privacyNote"))}${CONFIG.legal.privacy ? ` <a href="${esc(CONFIG.legal.privacy)}" target="_blank" rel="noopener">${esc(t("privacyLink"))}</a>` : ""}</p>`;
+  $("send").textContent = t(o ? "sendOrder" : "sendEnquiry");
+}
+const bgEls = () => [...document.body.children].filter(el => !["bag", "overlay", "pd"].includes(el.id) && !["SCRIPT", "NOSCRIPT"].includes(el.tagName));
+function openBag(){
+  bgEls().forEach(el => el.inert = true);
+  $("bag").inert = false;
+  $("bag").classList.add("on"); $("overlay").classList.add("on");
+  $("close-bag").focus();
+}
+function closeBag(){
+  $("bag").classList.remove("on"); $("overlay").classList.remove("on");
+  $("bag").inert = true;
+  bgEls().forEach(el => el.inert = false);
+  $("open-bag").focus();
+}
+function addToBag(id, v = 0){
+  const item = bag.find(i => i.id === id && i.v === v);
+  item ? item.qty++ : bag.push({ id, v, qty: 1 });
+  save(); updateBag();
+}
+function changeQty(k, delta){
+  const item = bag.find(i => keyOf(i) === k); if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) bag = bag.filter(i => keyOf(i) !== k);
+  save(); updateBag();
+}
+function removeItem(k){ bag = bag.filter(i => keyOf(i) !== k); save(); updateBag(); }
+
+function updateBag(){
+  let total = 0, qty = 0, partial = false;
+  const html = bag.map(i => {
+    const p = PRODUCTS.find(x => x.id === i.id); if (!p) return "";
+    const v = p.variants[i.v]; if (!v) return "";
+    qty += i.qty;
+    const priced = CONFIG.showPrices && v.price != null;
+    if (priced) total += v.price * i.qty; else if (CONFIG.showPrices) partial = true;
+    const thumb = p.images && p.images[0] ? `<img src="${esc(p.images[0])}" alt="">` : esc(p.emoji || CONFIG.placeholder);
+    const sub = [priced ? money(v.price) : (CONFIG.showPrices ? t("priceRequest") : ""), v.label].filter(Boolean).map(esc).join(" · ");
+    const k = keyOf(i), label = p.name + (v.label ? " – " + v.label : "");
+    return `
+      <div class="item">
+        <span class="mini" aria-hidden="true">${thumb}</span>
+        <div class="info">
+          <b>${esc(p.name)}</b>
+          <span class="size">${sub}</span>
+          <div class="qty">
+            <button type="button" data-act="minus" data-k="${k}" aria-label="${esc(t("decrease"))} ${esc(label)}">−</button><span>${i.qty}</span><button type="button" data-act="plus" data-k="${k}" aria-label="${esc(t("increase"))} ${esc(label)}">+</button>
+            <button type="button" class="rm" data-act="remove" data-k="${k}">${esc(t("remove"))}</button>
+          </div>
+        </div>
+        ${priced ? `<strong>${money(v.price * i.qty)}</strong>` : ""}
+      </div>`;
+  }).join("");
+  $("items").innerHTML = html || `<div class="none">${esc(t("bagEmpty"))}</div>`;
+  $("total").textContent = money(total);
+  $("total-row").hidden = !(CONFIG.showPrices && total > 0);
+  $("total-note").hidden = !partial;
+  $("total-items").textContent = qty;
+}
+
+/* ---------- Send via WhatsApp ---------- */
+function sendOrder(){
+  const o = orderMode(), err = $("err");
+  const name = $("c-name").value.trim();
+  const address = o ? $("c-address").value.trim() : "";
+  const fail = key => { err.textContent = t(key); err.style.display = "block"; };
+  if (!bag.length) return fail("errEmpty");
+  if (o && (!name || !address)) return fail("errOrder");
+  err.style.display = "none";
+
+  let total = 0;
+  const lines = bag.map(i => {
+    const p = PRODUCTS.find(x => x.id === i.id), v = p.variants[i.v];
+    const priced = CONFIG.showPrices && v.price != null;
+    if (priced) total += v.price * i.qty;
+    return `- ${i.qty}x ${p.name}${v.label ? ` (${v.label})` : ""}${priced ? ` - ${money(v.price * i.qty)}` : ""}`;
+  });
+  const head = [`*${t(o ? "msgOrder" : "msgEnquiry")}*`, ""];
+  if (name) head.push(`*${t("msgCustomer")}:* ${name}`);
+  if (o) head.push(`*${t("msgAddress")}:* ${address}`, `*${t("msgPayment")}:* ${$("c-payment").value}`);
+  else { const note = $("c-note").value.trim(); if (note) head.push(`*${t("msgNote")}:* ${note}`); }
+  const msg = [...head, "", `*${t("msgItems")}:*`, ...lines, ...(total > 0 ? ["", `*${t(o ? "total" : "msgTotal")}:* ${money(total)}`] : [])].join("\n");
+  window.open(`https://wa.me/${waNumber()}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+}
+
+function flashAdded(b){
+  b.textContent = t("added");
+  clearTimeout(b._t);
+  b._t = setTimeout(() => b.textContent = t("add"), 900);
+}
+
+/* =====================================================================
+   9) EVENTS
+   ===================================================================== */
+document.addEventListener("click", e => {
+  const add = e.target.closest("[data-add]");
+  if (add){
+    const sel = add.closest("#pd") ? $("pd-variant") : null;
+    addToBag(Number(add.dataset.add), sel ? Number(sel.value) : 0);
+    flashAdded(add);
+    return;
+  }
+  const det = e.target.closest("[data-detail]");
+  if (det) openDetail(Number(det.dataset.detail));
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && $("bag").classList.contains("on")) closeBag();
+});
+$("pd").addEventListener("click", e => {
+  if (e.target === $("pd") || e.target.closest("[data-close]")) { $("pd").close(); return; }
+  const th = e.target.closest("[data-thumb]");
+  if (th){
+    const img = $("pd-img"); if (img) img.src = th.dataset.thumb;
+    $("pd").querySelectorAll("[data-thumb]").forEach(b => b.removeAttribute("aria-current"));
+    th.setAttribute("aria-current", "true");
+  }
+});
+$("pd").addEventListener("change", e => {
+  if (e.target.id !== "pd-variant") return;
+  const p = PRODUCTS.find(x => x.id === Number($("pd").dataset.pid)); if (!p) return;
+  $("pd-price").innerHTML = variantPriceHTML(p.variants[Number(e.target.value)]);
+});
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]"); if (!b) return;
+  activeCategory = b.dataset.cat === "" ? null : b.dataset.cat;
+  renderTabs(); renderGrid();
+});
+$("f-stage").addEventListener("change", e => { stage = e.target.value; renderGrid(); });
+$("f-brand").addEventListener("change", e => { brandFilter = e.target.value; renderGrid(); });
+$("search-input").addEventListener("input", e => { searchTerm = e.target.value; renderGrid(); });
+$("search-clear").addEventListener("click", () => { searchTerm = ""; $("search-input").value = ""; renderGrid(); });
+$("items").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const k = b.dataset.k;
+  if (b.dataset.act === "plus") changeQty(k, 1);
+  else if (b.dataset.act === "minus") changeQty(k, -1);
+  else if (b.dataset.act === "remove") removeItem(k);
+});
+$("open-bag").addEventListener("click", openBag);
+$("close-bag").addEventListener("click", closeBag);
+$("overlay").addEventListener("click", closeBag);
+$("send").addEventListener("click", sendOrder);
+
+$("car-prev").addEventListener("click", () => { goTo(carIndex - 1); startAuto(); });
+$("car-next").addEventListener("click", () => { goTo(carIndex + 1); startAuto(); });
+$("car-dots").addEventListener("click", e => {
+  const b = e.target.closest("[data-dot]"); if (!b) return;
+  goTo(Number(b.dataset.dot)); startAuto();
+});
+$("car-pause").addEventListener("click", () => {
+  userPaused = !userPaused; updatePauseBtn();
+  userPaused ? stopAuto() : startAuto();
+});
+const car = $("car");
+car.addEventListener("mouseenter", stopAuto);
+car.addEventListener("mouseleave", startAuto);
+car.addEventListener("focusin", stopAuto);
+car.addEventListener("focusout", startAuto);
+car.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") goTo(carIndex - 1);
+  if (e.key === "ArrowRight") goTo(carIndex + 1);
+});
+let touchX = null;
+car.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+car.addEventListener("touchend", e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 40) goTo(carIndex + (dx < 0 ? 1 : -1));
+  touchX = null; startAuto();
+});
+let resizeT;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeT);
+  resizeT = setTimeout(() => { renderCarousel(); startAuto(); }, 150);
+});
+
+/* =====================================================================
+   10) INIT
+   ===================================================================== */
+applyTheme();
+applyI18n();
+renderBrand();
+injectSEO();
+renderStrip();
+renderServices();
+renderBrands();
+renderFooter();
+renderCheckout();
+updateStatus();
+setInterval(updateStatus, 60000);
+renderCarousel();
+startAuto();
+renderTabs();
+renderFilters();
+renderGrid();
+updateBag();
+</script>
+</body>
+</html>
